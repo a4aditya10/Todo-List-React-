@@ -4,7 +4,7 @@ import { MdPendingActions } from "react-icons/md";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { FaSort } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import emptyLogo from '../asset/emty_logo.png'
+import emptyLogo from '../asset/empty_logo.png'
 import { toast } from 'react-toastify';
 function DisplayTask({ tasks, setTasks }) {
   const [displayTask, setDisplayTask] = useState(tasks)
@@ -18,12 +18,12 @@ function DisplayTask({ tasks, setTasks }) {
       }
       return task;
     }))
-    toast.success("👍 Congratulation you complete a task")
+    toast.success("Congratulation you complete a task")
   }
 
   const deleteATask = (taskId) => {
     setTasks(tasks.filter((task) => task.id !== taskId))
-    toast.success("🚫 Task successfully deleted")
+    toast.success("Task successfully deleted")
   }
 
   const clearAllFilter = () => {
@@ -71,11 +71,7 @@ function DisplayTask({ tasks, setTasks }) {
     }
     return sortedArray;
   }
-  const handelSearchTaskByName = (e) => {
-    const searchValue = e.target.value.trim();
-    // console.log(searchValue);
-    setDisplayTask(tasks.filter((task) => task.taskName.toLowerCase().includes(searchValue.toLowerCase())))
-  }
+
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     if (selectedValue) {
@@ -118,12 +114,6 @@ function DisplayTask({ tasks, setTasks }) {
           </select>
         </label>
 
-        <div  className="search-bar">
-          <input type="search" name="search" pattern=".*\S.*" onChange={handelSearchTaskByName} required/>
-            <button className="search-btn" type="submit">
-              <span>Search</span>
-            </button>
-        </div>
 
       </div>
       {
@@ -136,7 +126,7 @@ function DisplayTask({ tasks, setTasks }) {
               <p className='due-date'>{task.dueDate.split("T")[0]}</p>
               <p className='due-time'>{task.dueDate.split("T")[1]}</p>
               <p className='is-done-icon-para'>{task.isDone ? <IoCheckmarkDoneCircle className='completed-icon' /> : <MdPendingActions className='pending-icon' />}</p>
-              <button className='mark-complete-btn' disabled={task.isDone || task.isTimeOver} onClick={() => updateTaskCompleteStatus(task.id)} >{task.isDone ? "Completed" : "Marked as Complete"}</button>
+              <button className='mark-complete-btn' disabled={task.isDone || task.isTimeOver} onClick={() => updateTaskCompleteStatus(task.id)} >{task.isDone ? "Completed" : "Mark as Complete"}</button>
               <p><MdDelete className='delete-btn' onClick={() => deleteATask(task.id)} /></p>
             </div>
           ))

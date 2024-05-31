@@ -111,9 +111,8 @@ function AddTodo({ tasks, setTasks }) {
                 {errorMsg.dueDateError && isTouched.dueDate && <span className='error'>{errorMsg.dueDateError}</span>}
             </label>
 
-            <button type='button' className='add-btn' onClick={addNewTask}>ADD &#x2b;</button>
+            <button type='button' className='add-btn' onClick={addNewTask}>ADD</button>
         </div>
     );
 }
-
 export default AddTodo;
