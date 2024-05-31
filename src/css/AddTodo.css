@@ -1,0 +1,78 @@
+/* Container for adding todos */
+.add-todo-container {
+    margin-left: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+/* Label styling for relative positioning */
+.add-todo-container label {
+    position: relative;
+}
+
+/* Placeholder styling */
+.add-todo-container label .placeholder {
+    color: #02022B;
+    position: absolute;
+    bottom: 100%;
+}
+
+/* Input field styling */
+.add-todo-container label input {
+    border: 3px solid rgb(127, 170, 170);
+    border-radius: 20px;
+    background-image: linear-gradient(120deg,#3c3c3c,#585858);
+    color: rgb(127, 170, 170);
+    cursor: pointer;
+    padding: 7px 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    transition: all 1s;
+    max-width: 170px;
+}
+
+/* Input field focus styling */
+.add-todo-container label input:focus {
+    border-color: #7C8AFF;
+    box-shadow: 0 0 5px rgba(124, 138, 255, 0.5);
+}
+
+/* Button styling */
+.add-todo-container .add-btn {
+    background: #5E5DF0;
+  border-radius: 999px;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+}
+
+/* Button hover styling */
+.add-todo-container .add-btn:hover {
+    background-color: #5757aa;
+    border-color: #0a58ca;
+}
+
+/* Error message styling */
+.add-todo-container .error {
+    color: rgb(223, 12, 12);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}

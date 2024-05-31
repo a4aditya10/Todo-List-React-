@@ -1,0 +1,191 @@
+/* Main display container */
+.display-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #121212;
+    color: #e0e0e0;
+    padding: 1rem;
+}
+/* =============================== FILTER CONTAINER STYLE ================================================== */
+.filter-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    margin: 1.5rem 0;
+    border-bottom: 1px solid #424242;
+    width: 90%;
+}
+
+.filter-btn-container .applied-filter-btn,
+.filter-btn-container .filter-btn {
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 4px;
+    padding: 0 16px;
+    height: 36px;
+    line-height: 1.15;
+    font-size: 14px;
+    text-transform: uppercase;
+    min-width: 64px;
+    text-align: center;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.filter-btn-container .applied-filter-btn {
+    color: #121212;
+    background-color: #bb86fc;
+    border: none;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.filter-btn-container .applied-filter-btn:hover {
+    background-color: #9a67ea;
+}
+
+.filter-btn-container .filter-btn {
+    color: #bb86fc;
+    background-color: transparent;
+    border: 1px solid #bb86fc;
+}
+
+.filter-btn-container .filter-btn:hover {
+  background-color: #bb86fc;
+    color: #121212;
+}
+
+.filter-btn-container label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-btn-container .sorted-criteria-select {
+    border: 1px solid #bb86fc;
+    background-color: #9a67ea;
+    color: #9a67ea;
+    background-color: transparent;
+    padding: 4px 8px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    
+}
+
+.task-container {
+    position: relative;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    margin-top: 1rem;
+    padding: 1rem;
+    transition: box-shadow 0.4s ease-in-out;
+    color: #e0e0e0;
+}
+
+.task-container p {
+    font-size: 1.5rem;
+    margin: 5px;
+}
+
+.task-container .task-name {
+    width: 20rem;
+    word-wrap: break-word;
+    color: #fff;
+}
+
+.task-container .due-date,
+.task-container .due-time {
+    width: 8rem;
+    color: #fff;
+}
+
+.task-container .is-done-icon-para {
+    width: 2.5rem;
+}
+
+.task-container .pending-icon {
+    color: yellow;
+}
+
+.task-container .completed-icon {
+    color: green;
+}
+
+.task-container .mark-complete-btn {
+    width: fit-content;
+    cursor: pointer;
+    background: none;
+    border: 2px solid #fff;
+    color: rgb(136, 193, 136);
+    font-size: 1vw;
+}
+
+.mark-complete-btn {
+    background-color: #36A9AE;
+    background-image: linear-gradient(#37ADB2, #329CA0);
+    border: 1px solid #2A8387;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 1px 1px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: block;
+    font-family: -apple-system,".SFNSDisplay-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 17px;
+    line-height: 100%;
+    margin: 0;
+    outline: 0;
+    padding: 11px 15px 12px;
+    text-align: center;
+    transition: box-shadow .05s ease-in-out,opacity .05s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100%;
+  }
+  
+  .mark-complete-btn:hover {
+    box-shadow: rgba(255, 255, 255, 0.3) 0 0 2px inset, rgba(0, 0, 0, 0.4) 0 1px 2px;
+    text-decoration: none;
+    transition-duration: .15s, .15s;
+  }
+  
+  .mark-complete-btn:active {
+    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 4px inset, rgba(0, 0, 0, 0.4) 0 1px 1px;
+  }
+  
+  .mark-complete-btn:disabled {
+    cursor: not-allowed;
+    opacity: .6;
+  }
+  
+  .mark-complete-btn:disabled:active {
+    pointer-events: none;
+  }
+  
+  .mark-complete-btn:disabled:hover {
+    box-shadow: none;
+  }
+
+.task-container .delete-btn {
+    font-size: 1.5rem;
+    color: red;
+    cursor: pointer;
+}
+
+.task-container .time-over-cut {
+    position: absolute;
+    top: 43%;
+    width: 100%;
+    height: 2px;
+    background-color: red;
+}
