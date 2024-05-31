@@ -106,7 +106,7 @@ function DisplayTask({ tasks, setTasks }) {
         <label>
          
           <select className='sorted-criteria-select' defaultValue={sorting_criteria || "all"} onChange={handleSelectChange} >
-            <option value="dueDate" >Due Time</option>
+            <option value="dueDate" >By Date</option>
             <option value="newToOld" >New To Old</option>
             <option value="oldToNew" >Old To New</option>
           </select>
