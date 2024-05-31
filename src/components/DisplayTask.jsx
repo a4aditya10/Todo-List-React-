@@ -43,17 +43,19 @@ function DisplayTask({ tasks, setTasks }) {
     setFilterState("today");
   };
 
-  const sortTaskArray = (sortBy = "DueDate", array) => {
-    let sortedArray = [];
-    if (sortBy === "DueDate") {
+  const sortTaskArray = (sortBy = "dueDate", array = displayTask) => {
+    let sortedArray = []
+    if (sortBy === "dueDate") {
       sortedArray = [...array].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-    } else if (sortBy === "New To Old") {
-      sortedArray = [...array].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    } else if (sortBy === "Old To New") {
-      sortedArray = [...array].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+    else if(sortBy==="newToOld"){
+      sortedArray = [...array].sort((a, b) => new Date(b.createdAt)-new Date(a.createdAt));
+    }
+    else if(sortBy==="oldToNew"){
+      sortedArray = [...array].sort((a, b) => new Date(a.createdAt)-new Date(b.createdAt))
+
     }
     return sortedArray;
-  };
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
