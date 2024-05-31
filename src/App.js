@@ -28,12 +28,14 @@ function App() {
   }, [])
   return (
     <div className='App'>
-      <h2>TODO LIST</h2>
+      <h2>ADD NEW TODO</h2>
       <AddTodo tasks={tasks} setTasks={setTasks} />
+      <h2>ADDED TODO LIST</h2>
       <DisplayTask tasks={tasks} setTasks={setTasks} />
 
 
     </div>
   )
 }
+
 export default App

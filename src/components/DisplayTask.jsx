@@ -2,7 +2,6 @@ import '../css/DisplayTask.css'
 import React, { useEffect, useState } from 'react'
 import { MdPendingActions } from "react-icons/md";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
-import { FaSort } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import emptyLogo from '../asset/empty_logo.png'
 import { toast } from 'react-toastify';
@@ -105,16 +104,13 @@ function DisplayTask({ tasks, setTasks }) {
         <button className={`${filterState === "completed" ? "applied-filter-btn" : "filter-btn"}`} onClick={completedTaskFilter}>Completed</button>
         <button className={`${filterState === "today" ? "applied-filter-btn" : "filter-btn"}`} onClick={todayTaskFilter}>Today Task</button>
         <label>
-          <span><FaSort /></span>
+         
           <select className='sorted-criteria-select' defaultValue={sorting_criteria || "all"} onChange={handleSelectChange} >
-            <option value="all" disabled >Select an option</option>
             <option value="dueDate" >Due Time</option>
             <option value="newToOld" >New To Old</option>
             <option value="oldToNew" >Old To New</option>
           </select>
         </label>
-
-
       </div>
       {
         displayTask && displayTask.length>0 ?<>{

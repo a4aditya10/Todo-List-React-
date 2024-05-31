@@ -23,29 +23,26 @@ function AddTodo({ tasks, setTasks }) {
             taskNameError: newTask.taskName.trim() === "" ? "Task name is required" : "",
             dueDateError: newTask.dueDate.trim() === "" ? "Due date is required" : ""
         });
-    };
+    }
 
     const addNewTask = () => {
-        produceError();
         if (newTask.taskName.trim() === "" || newTask.dueDate.trim() === "") {
             setIsTouched({
                 taskName: true,
                 dueDate: true
             });
+            produceError();
         } else {
             const currentTime = new Date();
-            setTasks((prevTasks) => [
-                ...prevTasks,
-                {
-                    id: uuidv4() + currentTime,
-                    taskName: newTask.taskName,
-                    dueDate: newTask.dueDate,
-                    isDone: false,
-                    isTimeOver: false,
-                    createdAt: new Date()
-                }
-            ]);
-            toast.success("Task successfully added");
+            setTasks((prevTasks) => [...prevTasks, {
+                id: uuidv4() + currentTime,
+                taskName: newTask.taskName,
+                dueDate: newTask.dueDate,
+                isDone: false,
+                isTimeOver: false,
+                createdAt: new Date()
+            }]);
+            toast.success("🚀 Task successfully added");
             setNewTask({
                 taskName: "",
                 dueDate: "",
@@ -54,8 +51,12 @@ function AddTodo({ tasks, setTasks }) {
                 taskName: false,
                 dueDate: false
             });
+            setErrorMsg({
+                taskNameError: "",
+                dueDateError: ""
+            });
         }
-    };
+    }
 
     const handleBlur = (e) => {
         const { name } = e.target;
@@ -63,7 +64,7 @@ function AddTodo({ tasks, setTasks }) {
             ...isTouched,
             [name]: true
         });
-    };
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -71,7 +72,7 @@ function AddTodo({ tasks, setTasks }) {
             ...newTask,
             [name]: value
         });
-    };
+    }
 
     useEffect(() => {
         const now = new Date();
@@ -86,33 +87,19 @@ function AddTodo({ tasks, setTasks }) {
         <div className='add-todo-container'>
             <label>
                 <span className='placeholder'>Task Name</span>
-                <input
-                    type='text'
-                    placeholder='Task name'
-                    name='taskName'
-                    value={newTask.taskName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                />
+                <input type='text' placeholder='Task name' name='taskName' value={newTask.taskName} onChange={handleChange} onBlur={handleBlur} />
                 {errorMsg.taskNameError && isTouched.taskName && <span className='error'>{errorMsg.taskNameError}</span>}
             </label>
 
             <label>
                 <span className='placeholder'>Due date</span>
-                <input
-                    type="date"
-                    min={minDateTime}
-                    placeholder='Due date'
-                    name='dueDate'
-                    value={newTask.dueDate}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                />
+                <input type="date" min={minDateTime} placeholder='Due date' name='dueDate' value={newTask.dueDate} onChange={handleChange} onBlur={handleBlur} />
                 {errorMsg.dueDateError && isTouched.dueDate && <span className='error'>{errorMsg.dueDateError}</span>}
             </label>
 
             <button type='button' className='add-btn' onClick={addNewTask}>ADD</button>
         </div>
-    );
+    )
 }
+
 export default AddTodo;
