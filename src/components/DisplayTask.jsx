@@ -2,46 +2,60 @@ import '../css/DisplayTask.css'
 import React, { useEffect, useState } from 'react'
 import { MdPendingActions } from "react-icons/md";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
-
+import { FaSort } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import emptyLogo from '../asset/empty_logo.png'
+import emptyLogo from '../asset/emty_logo.png'
 import { toast } from 'react-toastify';
-
 function DisplayTask({ tasks, setTasks }) {
-  const [displayTask, setDisplayTask] = useState([]);
-  const [filterState, setFilterState] = useState("all");
-  const sortingCriteria = localStorage.getItem("sorting_criteria");
+  const [displayTask, setDisplayTask] = useState(tasks)
+  const [filterState, setFilterState] = useState("all")
+  const sorting_criteria = localStorage.getItem("sorting_criteria");
 
   const updateTaskCompleteStatus = (taskId) => {
-    setTasks(prevTasks => prevTasks.map((task) => {
+    setTasks(tasks.map((task) => {
       if (taskId === task.id) {
-        return { ...task, isDone: true };
+        task.isDone = true;
       }
       return task;
-    }));
-    toast.success("Congratulations, you completed a task!");
-  };
+    }))
+    toast.success("👍 Congratulation you complete a task")
+  }
 
   const deleteATask = (taskId) => {
-    setTasks(prevTasks => prevTasks.filter((task) => task.id !== taskId));
-    toast.success("Task successfully deleted");
-  };
+    setTasks(tasks.filter((task) => task.id !== taskId))
+    toast.success("🚫 Task successfully deleted")
+  }
 
   const clearAllFilter = () => {
-    setFilterState("all");
-  };
+    const filterTask = tasks;
+    const filterSortedTask = sorting_criteria ? sortTaskArray(sorting_criteria, filterTask) : filterTask;
+    setDisplayTask(filterSortedTask);
+    setFilterState("all")
+  }
 
   const pendingTaskFilter = () => {
-    setFilterState("pending");
-  };
+    const filterTask = tasks.filter((task) => task.isDone === false);
+    const filterSortedTask = sorting_criteria ? sortTaskArray(sorting_criteria, filterTask) : filterTask;
+    setDisplayTask(filterSortedTask);
+    setFilterState("pending")
+  }
 
   const completedTaskFilter = () => {
-    setFilterState("completed");
-  };
+    const filterTask = tasks.filter((task) => task.isDone === true);
+    const filterSortedTask = sorting_criteria ? sortTaskArray(sorting_criteria, filterTask) : filterTask;
+    setDisplayTask(filterSortedTask);
+    setFilterState("completed")
+  }
 
   const todayTaskFilter = () => {
-    setFilterState("today");
-  };
+    const localDate = new Date().toLocaleDateString();
+    const [month, day, year] = localDate.split('/');
+    const todayDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    const filterTask = tasks.filter((task) => task.dueDate.split("T")[0] === todayDate);
+    const filterSortedTask = sorting_criteria ? sortTaskArray(sorting_criteria, filterTask) : filterTask;
+    setDisplayTask(filterSortedTask);
+    setFilterState("today")
+  }
 
   const sortTaskArray = (sortBy = "dueDate", array = displayTask) => {
     let sortedArray = []
@@ -56,48 +70,36 @@ function DisplayTask({ tasks, setTasks }) {
 
     }
     return sortedArray;
-
+  }
+  const handelSearchTaskByName = (e) => {
+    const searchValue = e.target.value.trim();
+    // console.log(searchValue);
+    setDisplayTask(tasks.filter((task) => task.taskName.toLowerCase().includes(searchValue.toLowerCase())))
+  }
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     if (selectedValue) {
       localStorage.setItem("sorting_criteria", selectedValue);
-      setFilterState(filterState);
-    }
-  };
-
-  useEffect(() => {
-    let filterTask = tasks;
-
-    switch (filterState) {
-      case "pending":
-        filterTask = tasks.filter((task) => !task.isDone);
-        break;
-      case "completed":
-        filterTask = tasks.filter((task) => task.isDone);
-        break;
-      case "today":
-        const localDate = new Date().toLocaleDateString();
-        const [month, day, year] = localDate.split('/');
-        const todayDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-        filterTask = tasks.filter((task) => task.dueDate.split("T")[0] === todayDate);
-        break;
-      case "all":
-      default:
-        filterTask = tasks;
-    }
-
-    const filterSortedTask = sortingCriteria ? sortTaskArray(sortingCriteria, filterTask) : filterTask;
-    setDisplayTask(filterSortedTask);
-  }, [tasks, filterState, sortingCriteria]);
-
-  useEffect(() => {
-    if (sortingCriteria) {
-      const sortedArray = sortTaskArray(sortingCriteria, tasks);
+      const sortedArray = sortTaskArray(selectedValue);
       setDisplayTask(sortedArray);
-    } else {
-      setDisplayTask(tasks);
     }
-  }, [sortingCriteria, tasks]);
+  }
+
+  useEffect(() => {
+    setDisplayTask(tasks)
+    filterState === "all" && clearAllFilter()
+    filterState === "pending" && pendingTaskFilter()
+    filterState === "completed" && completedTaskFilter()
+    filterState === "today" && todayTaskFilter()
+// eslint-disable-next-line
+  }, [tasks])
+  useEffect(() => {
+    if (sorting_criteria) {
+      const sortedArray = sortTaskArray(sorting_criteria);
+      setDisplayTask(sortedArray)
+    }
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <div className='display-container'>
@@ -107,35 +109,45 @@ function DisplayTask({ tasks, setTasks }) {
         <button className={`${filterState === "completed" ? "applied-filter-btn" : "filter-btn"}`} onClick={completedTaskFilter}>Completed</button>
         <button className={`${filterState === "today" ? "applied-filter-btn" : "filter-btn"}`} onClick={todayTaskFilter}>Today Task</button>
         <label>
-          <select className='sorted-criteria-select' defaultValue={sortingCriteria || "DueDate"} onChange={handleSelectChange} >
-            <option value="DueDate">Due Date</option>
-            <option value="New To Old">New To Old</option>
-            <option value="Old To New">Old To New</option>
+          <span><FaSort /></span>
+          <select className='sorted-criteria-select' defaultValue={sorting_criteria || "all"} onChange={handleSelectChange} >
+            <option value="all" disabled >Select an option</option>
+            <option value="dueDate" >Due Time</option>
+            <option value="newToOld" >New To Old</option>
+            <option value="oldToNew" >Old To New</option>
           </select>
         </label>
+
+        <div  className="search-bar">
+          <input type="search" name="search" pattern=".*\S.*" onChange={handelSearchTaskByName} required/>
+            <button className="search-btn" type="submit">
+              <span>Search</span>
+            </button>
+        </div>
+
       </div>
-      {displayTask && displayTask.length > 0 ? (
-        <>
-          {displayTask.map((task, index) => (
+      {
+        displayTask && displayTask.length>0 ?<>{
+          displayTask.map((task, index) => (
             <div key={task.id} className="task-container">
               {task.isTimeOver && <p className='time-over-cut'></p>}
-              <p className='task-name'>{task.taskName}</p>
+              <p className='task-index'>{index + 1}</p>
+              <p className='task-name'> {task.taskName}</p>
               <p className='due-date'>{task.dueDate.split("T")[0]}</p>
               <p className='due-time'>{task.dueDate.split("T")[1]}</p>
               <p className='is-done-icon-para'>{task.isDone ? <IoCheckmarkDoneCircle className='completed-icon' /> : <MdPendingActions className='pending-icon' />}</p>
-              <button className='mark-complete-btn' disabled={task.isDone || task.isTimeOver} onClick={() => updateTaskCompleteStatus(task.id)}>{task.isDone ? "Completed" : "Mark as Complete"}</button>
+              <button className='mark-complete-btn' disabled={task.isDone || task.isTimeOver} onClick={() => updateTaskCompleteStatus(task.id)} >{task.isDone ? "Completed" : "Marked as Complete"}</button>
               <p><MdDelete className='delete-btn' onClick={() => deleteATask(task.id)} /></p>
             </div>
-          ))}
+          ))
+        }</>:<>
+        <img src={emptyLogo} alt=""/>
+        <h2 className='empty-heading'>EMPTY</h2>
         </>
-      ) : (
-        <>
-          <img src={emptyLogo} alt="No tasks available" />
-          <h2 className='empty-heading'>No tasks available</h2>
-        </>
-      )}
+      }
+   
     </div>
-  );
+  )
 }
 
-export default DisplayTask;
+export default DisplayTask
