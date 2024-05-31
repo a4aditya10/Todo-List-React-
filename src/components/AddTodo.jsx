@@ -42,7 +42,7 @@ function AddTodo({ tasks, setTasks }) {
                 isTimeOver: false,
                 createdAt: new Date()
             }]);
-            toast.success("🚀 Task successfully added");
+            toast.success("Task successfully added");
             setNewTask({
                 taskName: "",
                 dueDate: "",
@@ -86,13 +86,13 @@ function AddTodo({ tasks, setTasks }) {
     return (
         <div className='add-todo-container'>
             <label>
-                <span className='placeholder'>Task Name</span>
+                {/* <span className='placeholder'>Task Name</span> */}
                 <input type='text' placeholder='Task name' name='taskName' value={newTask.taskName} onChange={handleChange} onBlur={handleBlur} />
                 {errorMsg.taskNameError && isTouched.taskName && <span className='error'>{errorMsg.taskNameError}</span>}
             </label>
 
             <label>
-                <span className='placeholder'>Due date</span>
+                {/* <span className='placeholder'>Due date</span> */}
                 <input type="date" min={minDateTime} placeholder='Due date' name='dueDate' value={newTask.dueDate} onChange={handleChange} onBlur={handleBlur} />
                 {errorMsg.dueDateError && isTouched.dueDate && <span className='error'>{errorMsg.dueDateError}</span>}
             </label>

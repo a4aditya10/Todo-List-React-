@@ -31,8 +31,6 @@ function App() {
       <h2>TODO LIST</h2>
       <AddTodo tasks={tasks} setTasks={setTasks} />
       <DisplayTask tasks={tasks} setTasks={setTasks} />
-
-
     </div>
   )
 }
